@@ -34,16 +34,23 @@
 
 /**
  * @brief      main function
- * param       integer (argc) and character (argv) 
- * @return     none
+ * param       integer (argc) and character array (argv) 
+ * @return     0
  */
 int main(int argc, char* argv[]) {
   // Initializing the ros node
   ros::init(argc, argv, "roomba_walker");
   // Creating an object for the Walker class
   Walker walk;
-  // Run the walker behaviour by calling runRobot() function
-  walk.runRobot();
+  // Publish at a frequency of 10 Hz
+  ros::Rate loop(10);
+  // Run the loop until ros dies
+  while (ros::ok()) {
+    // Run the walker behaviour by calling runRobot() function
+    walk.runRobot();
+    ros::spinOnce();
+    loop.sleep();
+  }
   return 0;
 }
 

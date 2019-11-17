@@ -37,14 +37,11 @@
  * @brief      Constructor of the Walker class
  */
 Walker::Walker() {
-  // Initializing linear and angular speeds
-  linearVelocity = 0.3;
-  angularVelocity = 1.1;
   // Publishing the velocities
   publishVelocities = nh.advertise <geometry_msgs::Twist>
-  ("/mobile_base/commands/velocity", 1000);
+  ("/mobile_base/commands/velocity", 100);
   // Subscribing to LaserScan topic to detect obstacles
-  subscribeData = nh.subscribe<sensor_msgs::LaserScan> ("/scan", 1000,
+  subscribeData = nh.subscribe<sensor_msgs::LaserScan> ("/scan",50,
       &Walker::laserData, this);
   // Defining the initial linear and angular velocities
   msg.linear.x = 0.0;
@@ -76,6 +73,13 @@ Walker::~Walker() {
    * @return     none
    */
 void Walker::laserData(const sensor_msgs::LaserScan::ConstPtr& msg) {
+  for (int i = 0; i < msg->ranges.size(); ++i) {
+    if (msg->ranges[i] < 1.0) {
+      obstacle = true;
+      return;
+    }
+  }
+  obstacle = false;
 }
 
 /**
@@ -86,6 +90,7 @@ void Walker::laserData(const sensor_msgs::LaserScan::ConstPtr& msg) {
  *             1 if obstacle is detected, 0 otherwise
  */
 bool Walker::ObstaclePresence() {
+  return obstacle;
 }
 
 /**
@@ -94,11 +99,19 @@ bool Walker::ObstaclePresence() {
  * @return     none
  */
 void Walker::runRobot() {
-	// Publish at a frequency of 10 Hz
-     	ros::Rate loop(10);
-     	// Run the loop until ros dies
-    	while (ros::ok()) {
-    	}
-    	ros::spinOnce();
-    	loop.sleep();
+    // Check if obstacle is present nearby
+    if (obstaclePresence() == true) {
+    ROS_INFO_STREAM("Obstacle is present and turning the robot to avoid collision");
+    // Stop the robot
+    msg.linear.x = 0.0;
+    // Turn the robot
+    msg.angular.z = 1.0;
+    } else {
+      ROS_INFO_STREAM("Obstacle is not present");
+      // Stop turning the robot
+      msg.angular.z = 0.0;
+      // Set the forward linear speed
+      msg.linear.x = 0.5;
+    }
+    pubVelocities.publish(msg);
 }

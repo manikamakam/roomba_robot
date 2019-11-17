@@ -52,11 +52,7 @@ class Walker {
   geometry_msgs::Twist msg;
   // Variable to determine whether object is present or not
   bool obstacle;
-  // Variable to store the required linear speed
-  float linearVelocity;
-  // Variable to store the required angular speed
-  float angularVelocity;
-
+  
  public:
   /**
    * @brief      Constructor for Walker class

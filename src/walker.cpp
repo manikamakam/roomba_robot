@@ -36,15 +36,38 @@
 /**
  * @brief      Constructor of the Walker class
  */
-Guidance::Guidance() {
-  
+Walker::Walker() {
+  // Initializing linear and angular speeds
+  linearVelocity = 0.3;
+  angularVelocity = 1.1;
+  // Publishing the velocities
+  publishVelocities = nh.advertise <geometry_msgs::Twist>
+  ("/mobile_base/commands/velocity", 1000);
+  // Subscribing to LaserScan topic to detect obstacles
+  subscribeData = nh.subscribe<sensor_msgs::LaserScan> ("/scan", 1000,
+      &Walker::laserData, this);
+  // Defining the initial linear and angular velocities
+  msg.linear.x = 0.0;
+  msg.linear.y = 0.0;
+  msg.linear.z = 0.0;
+  msg.angular.x = 0.0;
+  msg.angular.y = 0.0;
+  msg.angular.z = 0.0;
+  publishVelocities.publish(msg);
 }
 
 /**
  * @brief      Destructor of the Walker class
  */
-Guidance::~Guidance() {
-
+Walker::~Walker() {
+  // Stop the robot at the end of the program
+  msg.linear.x = 0.0;
+  msg.linear.y = 0.0;
+  msg.linear.z = 0.0;
+  msg.angular.x = 0.0;
+  msg.angular.y = 0.0;
+  msg.angular.z = 0.0;
+  publishVelocities.publish(msg);
 }
 
 /**

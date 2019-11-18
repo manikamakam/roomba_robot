@@ -11,9 +11,11 @@ The project implements roomba type behaviour of a robot by simulating obstacle a
 
 ## Dependencies
 
-Ubuntu 16.04
-ROS Kinetic
-Turtlebot packages: To install, turtlebot packages, run the following command in terminal:
+1) Ubuntu 16.04
+2) ROS Kinetic
+3) Turtlebot packages
+
+To install turtlebot packages, run the following command in terminal:
 
 ```
 sudo apt install ros-kinetic-turtlebot-gazebo ros-kinetic-turtlebot-apps ros-kinetic-turtlebot-rviz-launchers

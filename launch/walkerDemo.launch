@@ -16,7 +16,7 @@
 	pkg="rosbag"
 	name="record"
 	type="record"
-	args="-a -x /camera/(.*) --duration=$(arg seconds) -O $(find roomba_robot)/results/demoRecord.bag"
+	args="-a -x /camera/(.*) --duration=$(arg seconds) -O $(find roomba_robot)/results/walkerRecord.bag"
         if="$(arg recordFlag)"
      />
 

@@ -31,7 +31,7 @@
  */
 
 #include <iostream>
-#include "walker/walker.h"
+#include "walker.h"
 
 /**
  * @brief      Constructor of the Walker class
@@ -39,9 +39,9 @@
 Walker::Walker() {
   // Publishing the velocities
   publishVelocities = nh.advertise <geometry_msgs::Twist>
-  ("/mobile_base/commands/velocity", 100);
+  ("/mobile_base/commands/velocity", 1000);
   // Subscribing to LaserScan topic to detect obstacles
-  subscribeData = nh.subscribe<sensor_msgs::LaserScan> ("/scan",50,
+  subscribeData = nh.subscribe<sensor_msgs::LaserScan> ("/scan",1000,
       &Walker::laserData, this);
   // Defining the initial linear and angular velocities
   msg.linear.x = 0.0;
@@ -73,8 +73,8 @@ Walker::~Walker() {
    * @return     none
    */
 void Walker::laserData(const sensor_msgs::LaserScan::ConstPtr& msg) {
-  for (int i = 0; i < msg->ranges.size(); ++i) {
-    if (msg->ranges[i] < 1.0) {
+  for (auto i : msg->ranges) {
+    if (i < 0.7) {
       obstacle = true;
       return;
     }
@@ -89,7 +89,7 @@ void Walker::laserData(const sensor_msgs::LaserScan::ConstPtr& msg) {
  * @return     return of type bool. 
  *             1 if obstacle is detected, 0 otherwise
  */
-bool Walker::ObstaclePresence() {
+bool Walker::obstaclePresence() {
   return obstacle;
 }
 
@@ -113,5 +113,5 @@ void Walker::runRobot() {
       // Set the forward linear speed
       msg.linear.x = 0.5;
     }
-    pubVelocities.publish(msg);
+    publishVelocities.publish(msg);
 }

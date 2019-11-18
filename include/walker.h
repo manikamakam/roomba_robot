@@ -76,7 +76,7 @@ class Walker {
    * @return     return of type bool. 
    *             1 if obstacle is detected, 0 otherwise
    */
-  bool ObstaclePresence();
+  bool obstaclePresence();
   /**
    * @brief      Logic to run the robot after detecting an object
    * @param      none

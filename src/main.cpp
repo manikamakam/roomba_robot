@@ -30,7 +30,7 @@
  *  DEALINGS IN THE SOFTWARE.
  */
 
-#include "walker/walker.h"
+#include "walker.h"
 
 /**
  * @brief      main function

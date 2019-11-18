@@ -112,7 +112,7 @@ void Walker::runRobot() {
       // Stop turning the robot
       msg.angular.z = 0.0;
       // Set the forward linear speed
-      msg.linear.x = 0.5;
+      msg.linear.x = 0.2;
     }
     publishVelocities.publish(msg);
 }

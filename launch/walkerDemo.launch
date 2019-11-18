@@ -1,0 +1,23 @@
+<launch>
+
+    <include file="$(find turtlebot_gazebo)/launch/turtlebot_world.launch"></include>
+    <arg name="recordFlag" default="false"/>
+    <arg name="seconds" default="30"/>
+
+    <node
+	pkg="roomba_robot"
+	name="roomba_robot"
+	type="roomba_robot"
+	output="screen"
+	launch-prefix="gnome-terminal --command"
+    />
+
+    <node
+	pkg="rosbag"
+	name="record"
+	type="record"
+	args="-a -x /camera/(.*) --duration=$(arg seconds) -O $(find roomba_robot)/results/demoRecord.bag"
+        if="$(arg recordFlag)"
+     />
+
+</launch>

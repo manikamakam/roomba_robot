@@ -31,7 +31,7 @@
  */
 
 #include <iostream>
-#include "roomba_robot/walker.h"
+#include "walker/walker.h"
 
 /**
  * @brief      Constructor of the Walker class

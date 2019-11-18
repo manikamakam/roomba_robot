@@ -30,7 +30,7 @@
  *  DEALINGS IN THE SOFTWARE.
  */
 
-#include "roomba_robot/walker.h"
+#include "walker/walker.h"
 
 /**
  * @brief      main function
@@ -39,7 +39,7 @@
  */
 int main(int argc, char* argv[]) {
   // Initializing the ros node
-  ros::init(argc, argv, "roomba_walker");
+  ros::init(argc, argv, "roomba_robot");
   // Creating an object for the Walker class
   Walker walk;
   // Publish at a frequency of 10 Hz

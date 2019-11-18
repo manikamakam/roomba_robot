@@ -30,8 +30,8 @@
  *  DEALINGS IN THE SOFTWARE.
  */
 
-#ifndef INCLUDE_ROOMBA_ROBOT_WALKER_H_
-#define INCLUDE_ROOMBA_ROBOT_WALKER_H_
+#ifndef INCLUDE_WALKER_H_
+#define INCLUDE_WALKER_H_
 
 #include "ros/ros.h"
 #include "sensor_msgs/LaserScan.h"

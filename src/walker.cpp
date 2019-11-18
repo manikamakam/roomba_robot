@@ -41,7 +41,7 @@ Walker::Walker() {
   publishVelocities = nh.advertise <geometry_msgs::Twist>
   ("/mobile_base/commands/velocity", 1000);
   // Subscribing to LaserScan topic to detect obstacles
-  subscribeData = nh.subscribe<sensor_msgs::LaserScan> ("/scan",1000,
+  subscribeData = nh.subscribe<sensor_msgs::LaserScan> ("/scan", 1000,
       &Walker::laserData, this);
   // Defining the initial linear and angular velocities
   msg.linear.x = 0.0;
@@ -51,6 +51,7 @@ Walker::Walker() {
   msg.angular.y = 0.0;
   msg.angular.z = 0.0;
   publishVelocities.publish(msg);
+  obstacle = false;
 }
 
 /**

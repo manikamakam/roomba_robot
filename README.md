@@ -48,19 +48,19 @@ roslaunch roomba_robot walkerDemo.launch
 
 Using rosrun
 
-Run roscore in a new terminal
+Run the follwing command in a new terminal:
 
 ```
 roscore
 ```
 
-Launch turtlebot gazebo simulation
+Launch turtlebot gazebo simulation by running the below command:
 
 ```
 roslaunch turtlebot_gazebo turtlebot_world.launch
 ```
 
-Run the turtlebot node by running the following command
+Run the node by the following command:
 
 ```
 rosrun roomba_robot roomba_robot 
@@ -68,7 +68,7 @@ rosrun roomba_robot roomba_robot
 
 ## Recording using rosbag files
 
-Record the rostopics using the following command with the launch file:
+Record the rostopics using the launch file by running the following command:
 
 ```
 roslaunch roomba_robot walkerDemo.launch recordFlag:=true
@@ -80,8 +80,6 @@ To record for a specific time
 ```
 roslaunch roomba_robot walkerDemo.launch recordFlag:=true seconds:=20
 ```
-
-In the above case rosbag will record for 20 seconds
 
 ## Playing bag files
 
